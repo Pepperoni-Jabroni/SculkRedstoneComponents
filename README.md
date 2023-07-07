@@ -17,6 +17,10 @@ This mod adds 3 new Sculk-themed Redstone Components which are the:
 3. **Redstone Calibrator** - This block will only output a signal if the input signal strength is equal to the side signal strength (or strength 1 by default), which makes Redcoders extremely simple!
    - Crafted with 3 Stone, 2 Redstone, 1 Sculk, & 1 Amethyst Shard
   
+<p align="center">
+<img src="https://github.com/Pepperoni-Jabroni/SculkRedstoneComponents/assets/17690401/907d912e-5bd9-4ce3-a070-6894194f2880"/>
+</p>
+  
 ## 📸 Media
 <details>
 <summary> Photos! </summary>
