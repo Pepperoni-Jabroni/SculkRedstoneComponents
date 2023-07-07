@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "minecraft:redstone"
+    },
+    "I": {
+      "item": "minecraft:stone"
+    },
+    "X": {
+      "item": "minecraft:sculk"
+    },
+    "Y": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "pattern": [
+    " Y ",
+    "#X#",
+    "III"
+  ],
+  "result": {
+    "item": "sculk_redstone_components:calibrator"
+  },
+  "show_notification": true
+}

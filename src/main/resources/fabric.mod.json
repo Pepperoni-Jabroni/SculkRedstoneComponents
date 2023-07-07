@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "sculk_redstone_components",
+  "version": "${version}",
+
+  "name": "Sculk Redstone Components",
+  "description": "Adds Sculk Redstone components: Retainer, Shrieker, & Calibrator",
+  "icon": "assets/sculk_redstone_components/icon.png",
+  "authors": [
+    "Pepperoni__Jabroni__"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/sculk_redstone_components",
+    "sources": "https://github.com/Pepperoni-Jabroni/SculkRedstoneComponents",
+    "issues": "https://github.com/Pepperoni-Jabroni/SculkRedstoneComponents/issues"
+  },
+
+  "license": "MIT",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": ["pepjebs.sculk_redstone_components.SculkRedstoneComponentsMod"],
+    "client": ["pepjebs.sculk_redstone_components.client.SculkRedstoneComponentsClient"]
+  },
+
+  "depends": {
+    "fabricloader": ">=0.14.21",
+    "fabric": "*",
+    "minecraft": "~1.20",
+    "java": ">=17"
+  }
+}

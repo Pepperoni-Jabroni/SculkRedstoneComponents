@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,powered=true": {
+      "model": "sculk_redstone_components:block/retainer_on",
+      "y": 270
+    },
+    "facing=east,powered=false": {
+      "model": "sculk_redstone_components:block/retainer",
+      "y": 270
+    },
+    "facing=north,powered=true": {
+      "model": "sculk_redstone_components:block/retainer_on",
+      "y": 180
+    },
+    "facing=north,powered=false": {
+      "model": "sculk_redstone_components:block/retainer",
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "sculk_redstone_components:block/retainer_on"
+    },
+    "facing=south,powered=false": {
+      "model": "sculk_redstone_components:block/retainer"
+    },
+    "facing=west,powered=true": {
+      "model": "sculk_redstone_components:block/retainer_on",
+      "y": 90
+    },
+    "facing=west,powered=false": {
+      "model": "sculk_redstone_components:block/retainer",
+      "y": 90
+    }
+  }
+}

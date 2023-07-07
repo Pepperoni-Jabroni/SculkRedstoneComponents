@@ -1,0 +1,80 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"particle": "sculk_redstone_components:block/retainer_on",
+		"bottom": "minecraft:block/smooth_stone",
+		"side": "block/sculk_shrieker_side",
+		"top": "block/sculk_shrieker_top",
+		"inner_top": "block/sculk_shrieker_inner_top",
+		"slab": "minecraft:block/smooth_stone",
+		"slab_top": "sculk_redstone_components:block/retainer_on"
+	},
+	"elements": [
+		{
+			"name": "bottom_slab",
+			"from": [0, 0, 0],
+			"to": [16, 2, 16],
+			"faces": {
+				"north": {"uv": [0, 14, 16, 16], "texture": "#slab", "cullface": "north"},
+				"east": {"uv": [0, 14, 16, 16], "texture": "#slab", "cullface": "east"},
+				"south": {"uv": [0, 14, 16, 16], "texture": "#slab", "cullface": "south"},
+				"west": {"uv": [0, 14, 16, 16], "texture": "#slab", "cullface": "west"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#slab_top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#bottom", "cullface": "down"}
+			}
+		},
+		{
+			"name": "top_slab",
+			"from": [1, 2, 1],
+			"to": [15, 9, 15],
+			"faces": {
+				"north": {"uv": [1, 1, 15, 8], "texture": "#side"},
+				"east": {"uv": [1, 1, 15, 8], "texture": "#side"},
+				"south": {"uv": [1, 1, 15, 8], "texture": "#side"},
+				"west": {"uv": [1, 1, 15, 8], "texture": "#side"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#top"}
+			}
+		},
+		{
+			"name": "up",
+			"from": [1, 8.98, 1],
+			"to": [15, 8.98, 15],
+			"faces": {
+				"down": {"uv": [1, 1, 15, 15], "texture": "#top"}
+			}
+		},
+		{
+			"name": "south",
+			"from": [1, 2, 14.98],
+			"to": [15, 9, 14.98],
+			"faces": {
+				"north": {"uv": [1, 1, 15, 8], "texture": "#side"}
+			}
+		},
+		{
+			"name": "north",
+			"from": [1, 2, 1.02],
+			"to": [15, 9, 1.02],
+			"faces": {
+				"south": {"uv": [1, 1, 15, 8], "texture": "#side"}
+			}
+		},
+		{
+			"name": "east",
+			"from": [14.98, 2, 1],
+			"to": [14.98, 9, 15],
+			"faces": {
+				"west": {"uv": [1, 1, 15, 8], "texture": "#side"}
+			}
+		},
+		{
+			"name": "west",
+			"from": [1.02, 2, 1],
+			"to": [1.02, 9, 15],
+			"faces": {
+				"east": {"uv": [1, 1, 15, 8], "texture": "#side"}
+			}
+		}
+	]
+}
