@@ -20,6 +20,7 @@ This mod adds 3 new Sculk-themed Redstone Components which are the:
 ## 📸 Media
 <details>
 <summary> Photos! </summary>
+  
 **Calibrator**: Photo of redstone signal strength 14 being denied pass through while filtering for strength 15.
 ![2023-07-07_18 15 42](https://github.com/Pepperoni-Jabroni/SculkRedstoneComponents/assets/17690401/cd696022-de3f-498b-9687-c0aa29d92e39)
 
