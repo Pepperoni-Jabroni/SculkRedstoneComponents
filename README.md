@@ -18,4 +18,12 @@ This mod adds 3 new Sculk-themed Redstone Components which are the:
    - Crafted with 3 Stone, 2 Redstone, 1 Sculk, & 1 Amethyst Shard
   
 ## 📸 Media
-*TODO*
+
+**Calibrator**: Photo of redstone signal strength 14 being denied pass through while filtering for strength 15.
+![2023-07-07_18 15 42](https://github.com/Pepperoni-Jabroni/SculkRedstoneComponents/assets/17690401/cd696022-de3f-498b-9687-c0aa29d92e39)
+
+**Retainer**: Photo of redstone signal strength 15 being held in memory after the closest button was pushed.
+![2023-07-07_18 15 54](https://github.com/Pepperoni-Jabroni/SculkRedstoneComponents/assets/17690401/1132bcb3-7793-4c21-8c78-632591b23a73)
+
+**Shrieker**: Photo of redstone signal strength 14 being detected by the Sculk Sensor, after being shrieked.
+![2023-07-07_18 17 04](https://github.com/Pepperoni-Jabroni/SculkRedstoneComponents/assets/17690401/9b3fd11f-0d35-4913-888d-fad9e0fd7f93)
