@@ -6,18 +6,18 @@ import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ComparatorBlockEntity;
-import net.minecraft.block.enums.ComparatorMode;
 import net.minecraft.entity.decoration.ItemFrameEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import pepjebs.sculk_redstone_components.SculkRedstoneComponentsMod;
+
+import java.util.List;
 
 public class RetainerBlock extends AbstractRedstoneGateBlock implements BlockEntityProvider {
 
@@ -33,8 +33,8 @@ public class RetainerBlock extends AbstractRedstoneGateBlock implements BlockEnt
     }
 
     @Override
-    protected int getOutputLevel(BlockView world, BlockPos pos, BlockState state) {
-        BlockEntity blockEntity = world.getBlockEntity(pos);
+    protected int getOutputLevel(BlockView view, BlockPos pos, BlockState state) {
+        BlockEntity blockEntity = view.getBlockEntity(pos);
         if (!(blockEntity instanceof ComparatorBlockEntity comparatorBlockEntity)) {
             return 0;
         }
@@ -47,8 +47,27 @@ public class RetainerBlock extends AbstractRedstoneGateBlock implements BlockEnt
         return new ComparatorBlockEntity(pos, state);
     }
 
+    private void update(World world, BlockPos pos, BlockState state) {
+        int computedSignal = this.calculateOutputSignal(world, pos, state);
+        boolean statePowered = state.get(POWERED);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof ComparatorBlockEntity comparatorBlockEntity) {
+            comparatorBlockEntity.setOutputSignal(computedSignal);
+        }
+        if (statePowered && computedSignal == 0) {
+            world.setBlockState(pos, state.with(POWERED, false), 2);
+        } else if (!statePowered && computedSignal > 0) {
+            world.setBlockState(pos, state.with(POWERED, true), 2);
+        }
+        this.updateTarget(world, pos, state);
+    }
+
     @Override
-    protected int getPower(World world, BlockPos pos, BlockState state) {
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        this.update(world, pos ,state);
+    }
+
+    private int calculateOutputSignal(World world, BlockPos pos, BlockState state) {
         int inputSidePower = super.getPower(world, pos, state);
         Direction direction = state.get(FACING);
         Direction dirRotated = direction.rotateClockwise(Direction.Axis.Y);
@@ -59,18 +78,49 @@ public class RetainerBlock extends AbstractRedstoneGateBlock implements BlockEnt
             return 0;
         }
         if (dirRotatedPower > 0) {
-            comparatorBlockEntity.setOutputSignal(0);
             return 0;
         } else if (comparatorBlockEntity.getOutputSignal() > 0) {
             return comparatorBlockEntity.getOutputSignal();
         } else {
-            int newPower = Math.max(inputSidePower, 0);
-            comparatorBlockEntity.setOutputSignal(newPower);
-            return newPower;
+            return Math.max(inputSidePower, 0);
         }
     }
 
+    /**
+     * Returns the input redstone power level provided to this gate block
+     */
+    @Override
+    protected int getPower(World world, BlockPos pos, BlockState state) {
+        int i = super.getPower(world, pos, state);
+        Direction direction = state.get(FACING);
+        BlockPos blockPos = pos.offset(direction);
+        BlockState blockState = world.getBlockState(blockPos);
+        if (blockState.hasComparatorOutput()) {
+            i = blockState.getComparatorOutput(world, blockPos);
+        } else if (i < 15 && blockState.isSolidBlock(world, blockPos)) {
+            blockPos = blockPos.offset(direction);
+            blockState = world.getBlockState(blockPos);
+            ItemFrameEntity itemFrameEntity = this.getAttachedItemFrame(world, direction, blockPos);
+            int j = Math.max(itemFrameEntity == null ? -2147483648 : itemFrameEntity.getComparatorPower(), blockState.hasComparatorOutput() ? blockState.getComparatorOutput(world, blockPos) : -2147483648);
+            if (j != -2147483648) {
+                i = j;
+            }
+        }
+
+        return i;
+    }
+
+    /**
+     * Adds FACING, which keeps track of which direction the gate is accepting input from
+     * & POWERED which is used by the blockstate to display powered-ness
+     */
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING, POWERED);
+    }
+
+    @Nullable
+    private ItemFrameEntity getAttachedItemFrame(World world, Direction facing, BlockPos pos) {
+        List<ItemFrameEntity> list = world.getEntitiesByClass(ItemFrameEntity.class, new Box(pos.getX(), pos.getY(), pos.getZ(), (pos.getX() + 1), (pos.getY() + 1), (pos.getZ() + 1)), (itemFrame) -> itemFrame != null && itemFrame.getHorizontalFacing() == facing);
+        return list.size() == 1 ? list.get(0) : null;
     }
 }
