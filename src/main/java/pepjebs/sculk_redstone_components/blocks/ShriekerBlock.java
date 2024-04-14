@@ -1,5 +1,6 @@
 package pepjebs.sculk_redstone_components.blocks;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.AbstractRedstoneGateBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
@@ -48,6 +49,11 @@ public class ShriekerBlock extends AbstractRedstoneGateBlock implements BlockEnt
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new ComparatorBlockEntity(pos, state);
+    }
+
+    @Nullable
+    public MapCodec<ShriekerBlock> getCodec() {
+        return null;
     }
 
     private void update(World world, BlockPos pos, BlockState state) {
