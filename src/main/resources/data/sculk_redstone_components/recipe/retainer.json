@@ -10,18 +10,14 @@
     },
     "X": {
       "item": "minecraft:sculk"
-    },
-    "Y": {
-      "item": "minecraft:amethyst_shard"
     }
   },
   "pattern": [
-    " Y ",
     "#X#",
     "III"
   ],
   "result": {
-    "item": "sculk_redstone_components:calibrator"
+    "id": "sculk_redstone_components:retainer"
   },
   "show_notification": true
 }
