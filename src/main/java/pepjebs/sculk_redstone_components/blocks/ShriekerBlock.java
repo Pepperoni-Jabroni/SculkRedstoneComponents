@@ -92,7 +92,8 @@ public class ShriekerBlock extends AbstractRedstoneGateBlock implements BlockEnt
                 world.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(state));
             } else {
                 world.emitGameEvent(
-                        Registries.GAME_EVENT.get(new Identifier("minecraft", "resonate_"+inputSidePower)),
+                        Registries.GAME_EVENT.getEntry(Registries.GAME_EVENT.get(
+                                Identifier.of("minecraft", "resonate_"+inputSidePower))),
                         pos,
                         GameEvent.Emitter.of(state)
                 );

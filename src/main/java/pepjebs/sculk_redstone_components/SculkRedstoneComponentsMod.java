@@ -22,9 +22,9 @@ public class SculkRedstoneComponentsMod implements ModInitializer {
     public static String MOD_ID = "sculk_redstone_components";
     public static Logger LOGGER = LogManager.getLogger(MOD_ID);
 
-    public static Identifier CALIBRATOR_ID = new Identifier(MOD_ID, "calibrator");
-    public static Identifier RETAINER_ID = new Identifier(MOD_ID, "retainer");
-    public static Identifier SHRIEKER_ID = new Identifier(MOD_ID, "shrieker");
+    public static Identifier CALIBRATOR_ID = Identifier.of(MOD_ID, "calibrator");
+    public static Identifier RETAINER_ID = Identifier.of(MOD_ID, "retainer");
+    public static Identifier SHRIEKER_ID = Identifier.of(MOD_ID, "shrieker");
 
     @Override
     public void onInitialize() {
