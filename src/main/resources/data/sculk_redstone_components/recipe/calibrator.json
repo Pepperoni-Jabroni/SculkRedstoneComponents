@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": {
-      "item": "minecraft:redstone"
-    },
-    "I": {
-      "item": "minecraft:stone"
-    },
-    "X": {
-      "item": "minecraft:sculk"
-    },
-    "Y": {
-      "item": "minecraft:amethyst_shard"
-    }
+    "#": "minecraft:redstone",
+    "I": "minecraft:stone",
+    "X": "minecraft:sculk",
+    "Y": "minecraft:amethyst_shard"
   },
   "pattern": [
     " Y ",

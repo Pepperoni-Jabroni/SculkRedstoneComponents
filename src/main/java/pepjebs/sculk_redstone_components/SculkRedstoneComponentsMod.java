@@ -2,20 +2,19 @@ package pepjebs.sculk_redstone_components;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pepjebs.sculk_redstone_components.blocks.CalibratorBlock;
 import pepjebs.sculk_redstone_components.blocks.RetainerBlock;
 import pepjebs.sculk_redstone_components.blocks.ShriekerBlock;
-
-import java.util.List;
 
 public class SculkRedstoneComponentsMod implements ModInitializer {
 
@@ -28,34 +27,37 @@ public class SculkRedstoneComponentsMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        RetainerBlock retainer = new RetainerBlock(FabricBlockSettings.create());
+        RetainerBlock retainer = new RetainerBlock(AbstractBlock.Settings.create().registryKey(RegistryKey.of(RegistryKeys.BLOCK, RETAINER_ID)));
         Registry.register(Registries.BLOCK,
                 RETAINER_ID,
                 retainer);
         Item retainerItem = Registry.register(
                 Registries.ITEM,
                 RETAINER_ID,
-                new BlockItem(retainer, new Item.Settings()));
-        ShriekerBlock shrieker = new ShriekerBlock(FabricBlockSettings.create().nonOpaque());
+                new BlockItem(retainer, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, RETAINER_ID))));
+        ShriekerBlock shrieker = new ShriekerBlock(AbstractBlock.Settings.create().nonOpaque().registryKey(RegistryKey.of(RegistryKeys.BLOCK, SHRIEKER_ID)));
         Registry.register(Registries.BLOCK,
                 SHRIEKER_ID,
                 shrieker);
         Item shriekerItem = Registry.register(
                 Registries.ITEM,
                 SHRIEKER_ID,
-                new BlockItem(shrieker, new Item.Settings()));
-        CalibratorBlock calibrator = new CalibratorBlock(FabricBlockSettings.create());
+                new BlockItem(shrieker, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, SHRIEKER_ID))));
+        CalibratorBlock calibrator = new CalibratorBlock(AbstractBlock.Settings.create().registryKey(RegistryKey.of(RegistryKeys.BLOCK, CALIBRATOR_ID)));
         Registry.register(Registries.BLOCK,
                 CALIBRATOR_ID,
                 calibrator);
         Item calibratorItem = Registry.register(
                 Registries.ITEM,
                 CALIBRATOR_ID,
-                new BlockItem(calibrator, new Item.Settings()));
+                new BlockItem(calibrator, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, CALIBRATOR_ID))));
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(content -> {
             content.addAfter(Items.COMPARATOR, calibratorItem);
             content.addAfter(calibratorItem, retainerItem);
             content.addAfter(retainerItem, shriekerItem);
         });
+        BlockEntityType.COMPARATOR.addSupportedBlock(calibrator);
+        BlockEntityType.COMPARATOR.addSupportedBlock(retainer);
+        BlockEntityType.COMPARATOR.addSupportedBlock(shrieker);
     }
 }

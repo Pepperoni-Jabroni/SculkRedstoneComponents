@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "sculk_redstone_components:item/shrieker"
+  }
+}

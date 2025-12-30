@@ -7,6 +7,7 @@ import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ComparatorBlockEntity;
+import net.minecraft.block.enums.ComparatorMode;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -17,6 +18,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import pepjebs.sculk_redstone_components.SculkRedstoneComponentsMod;
 
 import java.util.List;
 
@@ -73,7 +75,7 @@ public class CalibratorBlock extends AbstractRedstoneGateBlock implements BlockE
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        this.update(world, pos ,state);
+        this.update(world, pos, state);
     }
 
     /**
@@ -90,7 +92,19 @@ public class CalibratorBlock extends AbstractRedstoneGateBlock implements BlockE
             return 0;
         }
         int outputOnlyIfStr = (dirRotatedPower == 0) ? 1 : dirRotatedPower;
+        SculkRedstoneComponentsMod.LOGGER.info("%s %d %d".formatted(String.valueOf(pos), inputSidePower, outputOnlyIfStr));
         return inputSidePower == outputOnlyIfStr ? inputSidePower : 0;
+    }
+
+    @Override
+    protected boolean hasPower(World world, BlockPos pos, BlockState state) {
+        int i = this.getPower(world, pos, state);
+        if (i == 0) {
+            return false;
+        } else {
+            int j = this.getMaxInputLevelSides(world, pos, state);
+            return j == 0 ? i == 1 : i == j;
+        }
     }
 
     /**
@@ -103,12 +117,12 @@ public class CalibratorBlock extends AbstractRedstoneGateBlock implements BlockE
         BlockPos blockPos = pos.offset(direction);
         BlockState blockState = world.getBlockState(blockPos);
         if (blockState.hasComparatorOutput()) {
-            i = blockState.getComparatorOutput(world, blockPos);
+            i = blockState.getComparatorOutput(world, blockPos, direction);
         } else if (i < 15 && blockState.isSolidBlock(world, blockPos)) {
             blockPos = blockPos.offset(direction);
             blockState = world.getBlockState(blockPos);
             ItemFrameEntity itemFrameEntity = this.getAttachedItemFrame(world, direction, blockPos);
-            int j = Math.max(itemFrameEntity == null ? -2147483648 : itemFrameEntity.getComparatorPower(), blockState.hasComparatorOutput() ? blockState.getComparatorOutput(world, blockPos) : -2147483648);
+            int j = Math.max(itemFrameEntity == null ? -2147483648 : itemFrameEntity.getComparatorPower(), blockState.hasComparatorOutput() ? blockState.getComparatorOutput(world, blockPos, direction) : -2147483648);
             if (j != -2147483648) {
                 i = j;
             }
